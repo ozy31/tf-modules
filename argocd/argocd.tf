@@ -33,10 +33,9 @@ data "kubectl_file_documents" "argocd" {
 }
 
 resource "kubectl_manifest" "argocd_app" {
-  count = var.enable_argocd ? 1 : 0
+  for_each  = var.enable_argocd ? data.kubectl_file_documents.argocd.manifests : {}
 
-  depends_on = [ helm_release.argocd ]
-  for_each  = data.kubectl_file_documents.argocd.manifests
+  depends_on = [helm_release.argocd]
   yaml_body = each.value
   wait = true
   server_side_apply = true
