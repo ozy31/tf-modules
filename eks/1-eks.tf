@@ -49,9 +49,9 @@ resource "aws_cloudwatch_log_group" "this" {
 
 ###########SECURITY GROUP##########
 
-data "aws_vpc" "eks" {
-  id = var.vpc_id
-}
+# data "aws_vpc" "eks" {
+#  id = var.vpc_id
+# }
 
 resource "aws_security_group" "eks_worker_sg" {
   name        = "eks-worker-sg"
